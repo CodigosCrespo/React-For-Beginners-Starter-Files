@@ -42,7 +42,6 @@ class App extends React.Component {
     order[key] = order[key] + 1 || 1; // adding to existing OR setting to 1 (new order of fishes key)
     // update our state
     this.setState({ order }) // this.setState({order:order}) -> sets order const to new state
-    // decrement order ? (order[key] = order[key] - 1 || 0;)
   }
 
   render() {
@@ -59,7 +58,7 @@ class App extends React.Component {
           {/* key is for react, index is for us to pass down via props */}
           </ul>
         </div>
-        <Order />
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )
