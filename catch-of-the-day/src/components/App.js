@@ -11,6 +11,7 @@ class App extends React.Component {
     super();
     // binding .this to methods the react way
     this.addFish = this.addFish.bind(this);
+    this.updateFish = this.updateFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     // getinitialState, where we will update our virtualDOM
@@ -43,7 +44,6 @@ class App extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
-    console.log('local order updated');
   }
 
   addFish(fish) {
@@ -54,6 +54,12 @@ class App extends React.Component {
     fishes[`fish-${timestamp}`] = fish;
     // set state
     this.setState({ fishes }) // short for ({ fishes: fishes }) -> sets fishes state to new state
+  }
+
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
   }
 
   loadSamples() {
@@ -77,7 +83,7 @@ class App extends React.Component {
         <div className="menu">
           <Header tagline="Fresh Seafood Market" />
           <ul className="list-of-fishes">
-            { // this is beautiful T.T
+            { // this is intricately beautiful T.T
               Object
               .keys(this.state.fishes)
               .map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />)
@@ -90,7 +96,12 @@ class App extends React.Component {
         order={this.state.order}
         params={this.props.params}
         />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+        <Inventory
+        addFish={this.addFish}
+        loadSamples={this.loadSamples}
+        fishes={this.state.fishes}
+        updateFish={this.updateFish}
+        />
       </div>
     )
   }
