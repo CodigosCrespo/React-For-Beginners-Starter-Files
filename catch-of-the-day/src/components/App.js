@@ -12,8 +12,10 @@ class App extends React.Component {
     // binding .this to methods the react way
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
     // getinitialState, where we will update our virtualDOM
     this.state = {
       fishes: {},
@@ -62,6 +64,12 @@ class App extends React.Component {
     this.setState({ fishes });
   }
 
+  removeFish(key) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = null;
+    this.setState({ fishes });
+  }
+
   loadSamples() {
     this.setState({
       fishes: sampleFishes
@@ -75,6 +83,16 @@ class App extends React.Component {
     order[key] = order[key] + 1 || 1; // adding to existing OR setting to 1 (new order of fishes key)
     // update our state
     this.setState({ order }) // this.setState({order:order}) -> sets order const to new state
+  }
+
+  removeFromOrder(key) {
+    // get the state of the current order
+    const order = {...this.state.order};
+    // update order[key] before setState
+    // order[key] = order[key] - 1 || 0; // this line was wrong after pause challenge
+    delete order[key]; // completely remove, not decrement
+    // update order state by passing in new const state
+    this.setState({ order });
   }
 
   render() {
@@ -95,9 +113,11 @@ class App extends React.Component {
         fishes={this.state.fishes}
         order={this.state.order}
         params={this.props.params}
+        removeFromOrder={this.removeFromOrder}
         />
         <Inventory
         addFish={this.addFish}
+        removeFish={this.removeFish}
         loadSamples={this.loadSamples}
         fishes={this.state.fishes}
         updateFish={this.updateFish}
