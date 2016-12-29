@@ -2,7 +2,7 @@ import React from 'react';
 import { formatPrice } from '../helpers';
 class Fish extends React.Component {
   render() {
-    const { details, index } = this.props; // es6 destructuring
+    const { details, index, addToOrder } = this.props; // es6 destructuring
     const isAvailable = details.status === 'available';
     const buttonText = isAvailable ? 'Add To Order' : 'Sold Out!';
     return(
@@ -13,7 +13,7 @@ class Fish extends React.Component {
         <span className="price">{formatPrice(details.price)}</span>
       </h3>
       <p>{details.desc}</p>
-      <button onClick={() => this.props.addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
+      <button onClick={() => addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
     {/* button disables if isAvailable is false, ie 'sold out!' status */}
     </li>
     )
