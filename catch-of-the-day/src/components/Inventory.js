@@ -125,9 +125,7 @@ constructor() {
       </div>
     )
   }
-}
-
-Inventory.propTypes = {
+  static propTypes = {
   fishes: React.PropTypes.object.isRequired,
   updateFish: React.PropTypes.func.isRequired,
   removeFish: React.PropTypes.func.isRequired,
@@ -135,5 +133,8 @@ Inventory.propTypes = {
   loadSamples: React.PropTypes.func.isRequired,
   storeId: React.PropTypes.string.isRequired
 };
+}
+
+
 
 export default Inventory;

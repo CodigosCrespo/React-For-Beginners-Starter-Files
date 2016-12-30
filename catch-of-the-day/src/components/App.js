@@ -13,7 +13,7 @@ class App extends React.Component {
     this.addFish = this.addFish.bind(this);
     this.updateFish = this.updateFish.bind(this);
     this.removeFish = this.removeFish.bind(this);
-    this.loadSamples = this.loadSamples.bind(this);
+    // this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
     this.removeFromOrder = this.removeFromOrder.bind(this);
     // getinitialState, where we will update our virtualDOM
@@ -70,11 +70,11 @@ class App extends React.Component {
     this.setState({ fishes });
   }
 
-  loadSamples() {
+  loadSamples = () => {
     this.setState({
       fishes: sampleFishes
-    })
-  }
+    });
+  };
 
   addToOrder(key) {
     // take a copy of our state
